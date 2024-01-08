@@ -5,6 +5,9 @@ import math
 import os
 from typing import Union
 
+import equerre_compensee
+from equerre_compensee.utils import tolerance_threshold, xpm_cursor
+
 # PyQGIS
 from qgis.core import (
     QgsCoordinateReferenceSystem,
@@ -26,7 +29,7 @@ from qgis.gui import (
     QgsRubberBand,
     QgsSnapIndicator,
 )
-from qgis.PyQt.QtCore import QSize, Qt, pyqtSignal
+from qgis.PyQt.QtCore import QEvent, QObject, QSize, Qt, pyqtSignal
 from qgis.PyQt.QtGui import QColor, QCursor, QIcon, QKeySequence, QPixmap
 from qgis.PyQt.QtWidgets import (
     QFormLayout,
@@ -42,10 +45,7 @@ from qgis.PyQt.QtWidgets import (
 )
 from qgis.utils import iface
 
-from equerre_compensee.utils import tolerance_threshold, xpm_cursor
-
-
-PLUGIN_PATH = os.path.dirname("C:/dev/dock_ems/equerre_compensee/")  # __file__)
+PLUGIN_PATH = os.path.dirname(equerre_compensee.__file__)
 ICON_MAPTOOL = QIcon(
     os.path.join(PLUGIN_PATH, "resources", "images", "square_tool.svg")
 )
@@ -127,7 +127,7 @@ class CompasatedSquareDock(QgsDockWidget):
             spin_widget.setToolTip(config["tooltip"])
             spin_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
             spin_widget.valueChanged.connect(self.set_point)
-            spin_widget.editingFinished.connect(self.create_point)
+            spin_widget.installEventFilter(self)
             self._form_lyt.addRow(config["label"], spin_widget)
 
         self.le_tolerance = QLineEdit()
@@ -263,6 +263,23 @@ class CompasatedSquareDock(QgsDockWidget):
     def set_tolerance(self) -> None:
         """Sets the tolerance threshold value"""
         self.le_tolerance.setText(f"{tolerance_threshold(self.distance_measured):.3f}")
+
+    def eventFilter(self, source: QObject, event: QEvent) -> bool:
+        """Catch all events on widgets with installed event filter
+        param source: the Qt Object who fires the event
+        param event: the fired event
+        """
+        if event.type() == QEvent.KeyRelease:
+            if source in [
+                self._distance_one,
+                self._distance_two,
+                self._distance_measured,
+            ]:
+                if event.key() == Qt.Key_Return:
+                    self.create_point()
+                    return True
+
+        return False
 
     def closeEvent(self, event) -> None:
         """Close event"""
