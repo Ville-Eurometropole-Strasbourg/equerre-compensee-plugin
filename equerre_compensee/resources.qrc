@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/equerre_compensee" >
+        <file alias="icon.png">/resources/images/icon.png</file>
+    </qresource>
+</RCC>

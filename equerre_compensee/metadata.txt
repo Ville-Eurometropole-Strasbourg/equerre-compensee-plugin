@@ -1,0 +1,25 @@
+[general]
+name=Equerre compensée
+about=This tool helps to create points from a surveyor's plan
+category=Vector
+hasProcessingProvider=False
+description=This tool helps to create points from a surveyor's plan
+icon=resources/images/default_icon.png
+tags=équerre,compensée,compensation,alignement,point,ems
+
+# credits and contact
+author=Julien MONTICOLO
+email=julien.monticolo@strasbourg.eu
+homepage=https://gitlab.strasbourg.cloud/sgct/equette_compensee/
+repository=https://gitlab.strasbourg.cloud/sgct/equette_compensee/
+tracker=https://gitlab.strasbourg.cloud/sgct/equette_compensee//-/issues
+
+# experimental flag
+deprecated=False
+experimental=True
+qgisMinimumVersion=3.20
+qgisMaximumVersion=3.99
+
+# versioning
+version=0.1.0
+changelog=
