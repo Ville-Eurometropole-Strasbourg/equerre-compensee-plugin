@@ -52,6 +52,7 @@ ICON_MAPTOOL = QIcon(
 ICON_CAPTURE = QIcon(
     os.path.join(PLUGIN_PATH, "resources", "images", "mActionCapturePoint.svg")
 )
+EPSG = "EPSG:3948"
 
 
 class InfoLabel(QLabel):
@@ -207,7 +208,7 @@ class CompasatedSquareDock(QgsDockWidget):
 
     def crs_changed(self) -> None:
         """On CRS change"""
-        self.setEnabled(QgsProject.instance().crs().authid() == "EPSG:3948")
+        self.setEnabled(QgsProject.instance().crs().authid() == EPSG)
         self.iface.actionPan().trigger()
 
     def set_map_tool(self) -> None:
@@ -232,7 +233,7 @@ class CompasatedSquareDock(QgsDockWidget):
             point_lyr = layers[0]
         else:
             point_lyr = QgsVectorLayer(
-                "Point?crs=epsg:3948", self._point_lyr_name, "memory"
+                f"Point?crs={EPSG}", self._point_lyr_name, "memory"
             )
             QgsProject.instance().addMapLayer(point_lyr)
 
@@ -309,7 +310,7 @@ class CompensatedSquareTool(QgsMapTool):
             "Calculée : {0:.3f}<br/>Différence : {1:.3f}<br/>Tolérance : {2}"
         )
         self.points_to_draw = []
-        self.crs = QgsCoordinateReferenceSystem("EPSG:3948")
+        self.crs = QgsCoordinateReferenceSystem(EPSG)
         self.rubber_line = QgsRubberBand(self._canvas, QgsWkbTypes.LineGeometry)
         self.rubber_line.setWidth(1)
         self.rubber_line.setColor(QColor("#FF0000"))

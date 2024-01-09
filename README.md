@@ -7,6 +7,7 @@
 ### How to use
 
 - Afficher le dock de l'outil en cliquant sur l'icône ![icône de l'extension](./equerre_compensee/resources/images/icon.png)
+- L'outil est disponible uniquement pour le système de coordonnées de référence (SCR) : RGF93 / CC48 (`EPSG: 3948`)
 - Renseigner la distance en abscisse (`Alt`+`1`), libellée `Distance 1`
 - Renseigner éventuellement la distance en ordonnée (`Alt` + `2`), libellée `Distance 2`
 - Renseigner la distance mesurée sur le plan (`Alt` + `3`)
