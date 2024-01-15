@@ -8,9 +8,9 @@
 
 - Afficher le dock de l'outil en cliquant sur l'icône ![icône de l'extension](./equerre_compensee/resources/images/icon.png)
 - L'outil est disponible uniquement pour le système de coordonnées de référence (SCR) : RGF93 / CC48 (`EPSG: 3948`)
-- Renseigner la distance en abscisse (`Alt`+`1`), libellée `Distance 1`
-- Renseigner éventuellement la distance en ordonnée (`Alt` + `2`), libellée `Distance 2`
-- Renseigner la distance mesurée sur le plan (`Alt` + `3`)
+- Renseigner la distance en abscisse (`Ctrl`+`1`), libellée `Distance 1`
+- Renseigner éventuellement la distance en ordonnée (`Ctrl` + `2`), libellée `Distance 2`
+- Renseigner la distance mesurée sur le plan (`Ctrl` + `3`)
 - Charger l'outil pour créer le point compensé en cliquant sur ![Outil équerre compensée](./equerre_compensee/resources/images/square_tool.svg)
 - Le curseur de la souris a dû se transformer en réticule. Cliquer sur le premier point pour débuter le segment de la distance calculée. Il est possible d'annuler ce premier point avec la touche `Échap`.
 - À côté du réticule, s'affichent les informations de la distance calculée, de la différence avec la distance mesurée ainsi que l'indicateur de tolérance, affichant ✅ lorsque le seuil est acceptable. Le reste du temps, il affiche ❌.
