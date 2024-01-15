@@ -93,20 +93,20 @@ class CompasatedSquareDock(QgsDockWidget):
         self._main_lyt.addLayout(self._tools_lyt)
         spinbox_configs = {
             "distance_one": {
-                "label": "Distance &1 :",
+                "label": "Distance <u>1</u> :",
                 "min": -9999,
                 "max": 9999,
                 "clearvalue": 0,
                 "decimals": 4,
-                "tooltip": "Distance en abscisse (Alt+1)",
+                "tooltip": "Distance en abscisse (Ctrl+1)",
             },
             "distance_two": {
-                "label": "Distance &2 :",
+                "label": "Distance <u>2</u> :",
                 "min": -9999,
                 "max": 9999,
                 "clearvalue": 0,
                 "decimals": 4,
-                "tooltip": "Distance en ordonnée (Alt+2)",
+                "tooltip": "Distance en ordonnée (Ctrl+2)",
             },
             "distance_measured": {
                 "label": "Mesurée :",
@@ -114,7 +114,7 @@ class CompasatedSquareDock(QgsDockWidget):
                 "max": 9999,
                 "clearvalue": 0,
                 "decimals": 4,
-                "tooltip": "Distance mesurée sur le plan (Alt+3)",
+                "tooltip": "Distance mesurée sur le plan (Ctrl+3)",
             },
         }
         for spinbox, config in spinbox_configs.items():
@@ -130,6 +130,8 @@ class CompasatedSquareDock(QgsDockWidget):
             spin_widget.valueChanged.connect(self.set_point)
             spin_widget.installEventFilter(self)
             self._form_lyt.addRow(config["label"], spin_widget)
+            spin_label = self._form_lyt.labelForField(spin_widget)
+            spin_label.setToolTip(config["tooltip"])
 
         self.le_tolerance = QLineEdit()
         self.le_tolerance.setReadOnly(True)
@@ -152,14 +154,22 @@ class CompasatedSquareDock(QgsDockWidget):
         self._tools_lyt.addItem(spacerItem)
         self._square_tool = CompensatedSquareTool(self._canvas, self)
         # shortcuts
-        self.cancel_shortcut = QShortcut(
+        self._cancel_shortcut = QShortcut(
             QKeySequence(Qt.Key_Escape), self.iface.mainWindow()
         )
-        self.cancel_shortcut.setContext(Qt.ApplicationShortcut)
-        self.measured_distance_shortcut = QShortcut(QKeySequence("Alt+3"), self)
+        self._cancel_shortcut.setContext(Qt.ApplicationShortcut)
+        self._distance_one_shortcut = QShortcut(QKeySequence("Ctrl+1"), self)
+        self._distance_two_shortcut = QShortcut(QKeySequence("Ctrl+2"), self)
+        self._measured_distance_shortcut = QShortcut(QKeySequence("Ctrl+3"), self)
         # signals
-        self.cancel_shortcut.activated.connect(self._square_tool.deactivate)
-        self.measured_distance_shortcut.activated.connect(
+        self._cancel_shortcut.activated.connect(self._square_tool.deactivate)
+        self._distance_one_shortcut.activated.connect(
+            lambda: self._distance_one.setFocus(Qt.TabFocusReason)
+        )
+        self._distance_two_shortcut.activated.connect(
+            lambda: self._distance_two.setFocus(Qt.TabFocusReason)
+        )
+        self._measured_distance_shortcut.activated.connect(
             lambda: self._distance_measured.setFocus(Qt.TabFocusReason)
         )
         self.pb_square_tool.clicked.connect(self.set_map_tool)
@@ -285,7 +295,7 @@ class CompasatedSquareDock(QgsDockWidget):
     def closeEvent(self, event) -> None:
         """Close event"""
         # for shortcut working the next time in the same QGIS instance
-        self.cancel_shortcut.setContext(Qt.WidgetShortcut)
+        self._cancel_shortcut.setContext(Qt.WidgetShortcut)
         QgsDockWidget.closeEvent(self, event)
 
 
