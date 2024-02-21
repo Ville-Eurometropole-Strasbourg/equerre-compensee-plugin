@@ -71,7 +71,12 @@ class InfoLabel(QLabel):
 
 
 class QgsDoubleSpinBoxV2(QgsDoubleSpinBox):
+    """QgsDoubleSpinBox that selects the content on focus in"""
+
     def focusInEvent(self, event: QFocusEvent) -> None:
+        """
+        param event: focus event
+        """
         QgsDoubleSpinBox.focusInEvent(self, event)
         QTimer.singleShot(0, self.selectAll)
 
