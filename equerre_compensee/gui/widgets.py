@@ -29,8 +29,8 @@ from qgis.gui import (
     QgsRubberBand,
     QgsSnapIndicator,
 )
-from qgis.PyQt.QtCore import QEvent, QObject, QSize, Qt, pyqtSignal
-from qgis.PyQt.QtGui import QColor, QCursor, QIcon, QKeySequence, QPixmap
+from qgis.PyQt.QtCore import QEvent, QObject, QSize, Qt, QTimer, pyqtSignal
+from qgis.PyQt.QtGui import QColor, QCursor, QFocusEvent, QIcon, QKeySequence, QPixmap
 from qgis.PyQt.QtWidgets import (
     QFormLayout,
     QHBoxLayout,
@@ -68,6 +68,12 @@ class InfoLabel(QLabel):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setAlignment(Qt.AlignRight)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
+
+
+class QgsDoubleSpinBoxV2(QgsDoubleSpinBox):
+    def focusInEvent(self, event: QFocusEvent) -> None:
+        QgsDoubleSpinBox.focusInEvent(self, event)
+        QTimer.singleShot(0, self.selectAll)
 
 
 class CompasatedSquareDock(QgsDockWidget):
@@ -118,7 +124,7 @@ class CompasatedSquareDock(QgsDockWidget):
             },
         }
         for spinbox, config in spinbox_configs.items():
-            setattr(self, f"_{spinbox}", QgsDoubleSpinBox())
+            setattr(self, f"_{spinbox}", QgsDoubleSpinBoxV2())
             spin_widget = getattr(self, f"_{spinbox}")
             spin_widget.setObjectName(spinbox)
             spin_widget.setMinimum(config["min"])
@@ -286,7 +292,7 @@ class CompasatedSquareDock(QgsDockWidget):
                 self._distance_two,
                 self._distance_measured,
             ]:
-                if event.key() == Qt.Key_Return:
+                if event.key() in [Qt.Key_Return, Qt.Key_Enter]:
                     self.create_point()
                     return True
 

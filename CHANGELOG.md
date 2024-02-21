@@ -16,6 +16,11 @@ Unreleased
 
 -->
 
+## 0.2.0 - 2024-02-21
+
+- Create point with Enter and Return Key
+- Select the spinbox content on mouse focus
+
 ## 0.1.0 - 2024-01-04
 
 - First release
