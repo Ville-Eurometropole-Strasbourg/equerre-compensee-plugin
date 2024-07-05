@@ -25,19 +25,19 @@
 | :-- | :--: |
 | Plugin name | Equerre compensée |
 | Plugin name slugified | equerre_compensee |
-| Plugin name class (used in code) | EquerreCompensee |
+| Plugin name class (used in code) | EquerreCompenseePlugin |
 | Plugin category | Vector |
 | Plugin description short | This tool helps to create points from a surveyor's plan |
 | Plugin description long | This tool helps to create points from a surveyor's plan |
 | Plugin tags | équerre,compensée,compensation,alignement,point,ems |
-| Plugin icon | default_icon.png |
+| Plugin icon | ./equerre_compensee/resources/images/icon.png |
 | Plugin with processing provider | False |
 | Author name | Julien MONTICOLO |
 | Author organization | Eurométropole de Strasbourg |
 | Author email | julien.monticolo@strasbourg.eu |
 | Minimum QGIS version | 3.20 |
 | Maximum QGIS version | 3.99 |
-| Git repository URL | https://gitlab.strasbourg.cloud/sgct/equette_compensee/ |
+| Git repository URL | https://gitlab.strasbourg.cloud/sgct/equerre-compensee-plugin/ |
 | Git default branch | main |
 | License | GPLv3 |
 | Python linter | Flake8 |

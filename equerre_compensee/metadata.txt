@@ -10,9 +10,9 @@ tags=équerre,compensée,compensation,alignement,point,ems
 # credits and contact
 author=Julien MONTICOLO
 email=julien.monticolo@strasbourg.eu
-homepage=https://gitlab.strasbourg.cloud/sgct/equette_compensee/
-repository=https://gitlab.strasbourg.cloud/sgct/equette_compensee/
-tracker=https://gitlab.strasbourg.cloud/sgct/equette_compensee//-/issues
+homepage=https://gitlab.strasbourg.cloud/sgct/equerre-compensee-plugin/
+repository=https://gitlab.strasbourg.cloud/sgct/equerre-compensee-plugin/
+tracker=https://gitlab.strasbourg.cloud/sgct/equerre-compensee-plugin/-/issues
 
 # experimental flag
 deprecated=False
