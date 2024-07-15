@@ -60,7 +60,7 @@ class InfoLabel(QLabel):
 
     def __init__(self, parent: QWidget = None):
         """
-        param parent: parent widget
+        :param parent: parent widget
         """
         super().__init__(
             parent, Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
@@ -75,7 +75,7 @@ class QgsDoubleSpinBoxV2(QgsDoubleSpinBox):
 
     def focusInEvent(self, event: QFocusEvent) -> None:
         """
-        param event: focus event
+        :param event: focus event
         """
         QgsDoubleSpinBox.focusInEvent(self, event)
         QTimer.singleShot(0, self.selectAll)
@@ -86,8 +86,8 @@ class CompasatedSquareDock(QgsDockWidget):
 
     def __init__(self, iface: QgisInterface, parent: QWidget = None):
         """
-        param iface: a QGIS interface
-        param parent: parent widget
+        :param iface: a QGIS interface
+        :param parent: parent widget
         """
         super().__init__(parent)
 
@@ -238,7 +238,7 @@ class CompasatedSquareDock(QgsDockWidget):
 
     def create_point(self, point: Union[QgsPointXY, None] = None) -> bool:
         """Create a point in a memory layer
-        param point: a point to create
+        :param point: a point to create
         """
         if not self._square_tool.point:
             return
@@ -276,7 +276,7 @@ class CompasatedSquareDock(QgsDockWidget):
 
     def set_point(self, value: float) -> None:
         """Sets the map tool point location
-        param value: a spinbox value, returned by the signal, not used
+        :param value: a spinbox value, returned by the signal, not used
         """
         self._square_tool.update_point()
         if self.sender().objectName() == "distance_measured":
@@ -288,8 +288,8 @@ class CompasatedSquareDock(QgsDockWidget):
 
     def eventFilter(self, source: QObject, event: QEvent) -> bool:
         """Catch all events on widgets with installed event filter
-        param source: the Qt Object who fires the event
-        param event: the fired event
+        :param source: the Qt Object who fires the event
+        :param event: the fired event
         """
         if event.type() == QEvent.KeyRelease:
             if source in [
@@ -320,8 +320,8 @@ class CompensatedSquareTool(QgsMapTool):
 
     def __init__(self, canvas: QgsMapCanvas, dock: CompasatedSquareDock):
         """
-        param canvas: a mapCanvas
-        param dock: the widget with measured distances
+        :param canvas: a mapCanvas
+        :param dock: the widget with measured distances
         """
         self._canvas = canvas
         super().__init__(self._canvas)

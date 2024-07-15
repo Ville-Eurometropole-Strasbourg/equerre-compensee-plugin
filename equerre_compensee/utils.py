@@ -7,7 +7,10 @@ from qgis.PyQt.QtWidgets import QToolBar
 
 @lru_cache(maxsize=5)
 def xpm_cursor(main_color: str = "#000000", buffer_color: str = "#FFFFFF") -> list:
-    """Returns a XPM cursor"""
+    """Returns a XPM cursor
+    :param main_color: cursor's main color
+    :param buffer_color: cursor's buffer color
+    """
     return [
         "16 16 3 1",
         "      c None",
@@ -34,8 +37,8 @@ def xpm_cursor(main_color: str = "#000000", buffer_color: str = "#FFFFFF") -> li
 
 def find_or_create_toolbar(iface, title: str) -> QToolBar:
     """Finds or create a new toolbar
-    param iface: a QGIS interface
-    param title: title of the toolbar to search or create
+    :param iface: a QGIS interface
+    :param title: title of the toolbar to search or create
     """
     obj_name = title_normalize(title)
     toolbars = iface.mainWindow().findChildren(QToolBar, obj_name)
@@ -49,7 +52,7 @@ def find_or_create_toolbar(iface, title: str) -> QToolBar:
 
 def title_normalize(title: str) -> str:
     """Normalizes a title
-    param title: title to normalize by deleting spaces and uppercase letters
+    :param title: title to normalize by deleting spaces and uppercase letters
     """
     new_title = title.lower()
     new_title = "".join(
@@ -66,6 +69,6 @@ def title_normalize(title: str) -> str:
 
 def tolerance_threshold(distance: float) -> float:
     """Returns a tolerance from a distance
-    param distance: a cartesian distance
+    :param distance: a cartesian distance
     """
     return 0.014 * distance**0.5 + 0.0001 * distance + 0.03
